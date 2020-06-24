@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <title>Disease Predictor Application</title>
+  <meta charset='utf-8'>
+   <link rel="stylesheet" href="main.css">
+   <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+  <header>
+    <h1>Disease Predictor</h1>
+    <p class='tagline'>- ACB Project</p>
+  </header>
+  <!-- input form for symptoms -->
+  <div class='form-wrapper'>
+    <form class='symptom-form' method="POST" action='/'>
+      <div class='symptom-wrapper'>
+        <input type='text' class='symptom' name='symptom' placeholder='Enter symptom' list='all-symptoms'autofocus>
+        <datalist id='all-symptoms'></datalist>
+        <button class='add-symptom'>Add symptom</button>
+    </div>
+    </form>
+  </div>
+  <div class="searchbtn-wrapper">
+    <a class='searchbtn' onclick="senddata()">Search</a>
+  </div>
+  <div class='symptoms-entered'>
+    <h3>Selected  Symptoms</h3>
+    <!-- add symptoms here as entered by the user, dynamically -->
+
+  </div>
+  <h1 id = 'two' ></h1>
+  
+
+
+  <script src='script.js'>
+  
+
+
+  </script>
+    <script type="text/javascript">
+
+function senddata(){
+
+  $.ajax({
+  method: "POST",
+  url: "diagnose.php",
+  data:  {value:user_symptoms},
+  success: function(data){
+         //alert("return");
+        //alert(data);
+        $("#two").html(data);
+    
+  },
+  error : function(request, status, error) {
+
+        var val = request.responseText;
+        alert("error "+val);
+    }
+});
+}
+
+
+
+
+  </script>
+</body>
+</html>
